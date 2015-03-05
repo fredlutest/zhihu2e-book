@@ -8,4 +8,4 @@ class Login(object):
         pass
 
     def sendmessage(self, account, password, captcha = ''):
-        pass 
+        pass
