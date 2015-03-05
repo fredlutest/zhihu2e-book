@@ -58,15 +58,15 @@ class Parse(object):
         self.reg_dict['noRecordFlag'] = r'<span class="copyright zu-autohide"><span class="zg-bull">'
         self.reg_tip_dict['noRecordFlag'] = r'检查是否禁止转载'
         self.reg_dict['questionID'] = r'(?<= target="_blank" href="/question/)\d*'
-        self.reg_tip_dict['questionID']   = u'提取问题ID'
-        self.reg_dict['answerID']        = r'(?<= target="_blank" href="/question/\d{8}/answer/)\d*'
-        self.reg_tip_dict['answerID']     = u'提取答案ID'
+        self.reg_tip_dict['questionID'] = u'提取问题ID'
+        self.reg_dict['answerID'] = r'(?<= target="_blank" href="/question/\d{8}/answer/)\d*'
+        self.reg_tip_dict['answerID'] = u'提取答案ID'
         # 没有考虑到只显示时间和昨天今天的问题
-        self.reg_dict['updateDate']      = r'(?<=>编辑于 )[-:\d]*'
-        self.reg_tip_dict['updateDate']   = u'提取最后更新日期'
+        self.reg_dict['updateDate'] = r'(?<=>编辑于 )[-:\d]*'
+        self.reg_tip_dict['updateDate'] = u'提取最后更新日期'
         # 没有考虑到只显示时间和昨天今天的问题
-        self.reg_dict['commitDate']      = r'(?<=发布于 )[-:\d]*'
-        self.reg_tip_dict['commitDate']   = u'提取回答发布日期'
+        self.reg_dict['commitDate'] = r'(?<=发布于 )[-:\d]*'
+        self.reg_tip_dict['commitDate'] = u'提取回答发布日期'
         # *********提取答案的信息*******************************************************************
         
         # 以下正则交由子类自定义之 
