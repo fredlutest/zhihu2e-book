@@ -7,6 +7,8 @@
 # Date        :    2014.03.04
 # ######################################################
 
+from Init import *
+
 class Zhihu2ebook(object):
     def __init__(self):
         u"""
@@ -14,9 +16,16 @@ class Zhihu2ebook(object):
         ContentList.txt使用$符号区隔开，同一行内的链接信息会放在一本电子书中
         :return: TODO
         """
+        self.checkUpdate()   # 检查是否需要更新，如果有更新，默认浏览器打开链接
+        init = Init()
+        self.conn = init.getConn()
+        self.epubContent = {}
+        self.epubInfolist = []
+        self.baseDir = os.path.realpath('.')  # 获得当前目录的绝对路径
 
 
-    def checkUpdate(self):
+
+    def checkupdate(self):
         u"""
         TODO：
         利用网络上某个文件的内容（时间对比）检查是否需要更新，如果时间信息是新的，

@@ -13,6 +13,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 import ConfigParser
+import os
 
 class Setting():
     u"""
@@ -51,8 +52,73 @@ class Setting():
         *   答案长度
     """
     def __init__(self):
+        # ConfigParser这个类能够很好地操作ini格式的文件（配置文件）
+        # http://blog.sina.com.cn/s/blog_65a8ab5d0101ffqq.html
+        # 看完删掉上一行  --何俊 03.06
         self.config = ConfigParser.SafeConfigParser()
+        self.settingList = [
+            'account',
+            'password',
+            'rememberAccount',
+            'maxThread',
+            'picQuality',
+            'contentLength',
+            'contentAgree',
+            'answerOrderBy',
+            'questionOrderBy'
+        ]
+        self.setDict = {
+            'account': 'mengqingxue2014@qq.com',  # TODO 有空注册一个163邮箱
+            'password': '131724qingxue',
+            'rememberAccount': '0',
+            'maxThread': '18',
+            'picQuality': '0',
+            'contentLength': '0',
+            'contentAgree': '5',
+            'answerOrderBy': 'agree',
+            'questionOrderBy': 'agreeCount',
+        }
+        self.initconfig()
+        self.config.read('setting.ini')  # ????
+        self.getSetting(self.settingList)
 
+    def initconfig(self):
+        """
+        初始化配置文件的配置信息
+        :return:
+        """
+        config = self.config
+        if not os.path.isfile('setting.ini'):
+            f = open('setting.ini', 'w')
+            f.close()
+            config.add_section('Zhihu2ebook')
+            for key in self.setDict:
+                config.set('Zhihu2ebook', key, self.setDict[key])
+                print key + ":" + self.setDict[key]
+            config.write(open('setting.ini', 'w'))
+        return
 
+    def getSetting(self, setting=[]):
+        """
+        获得配置文件的配置信息
+        :param setting:
+        :return:
+        """
+        config = self.config
+        data = {}
+        if config.has_section('Zhihu2ebook'):
+            for key in setting:
+                if config.has_option('Zhihu2ebook', key):
+                    data[key] = config.get('Zhihu2ebook', key, raw=True)
+                else:
+                    data[key] = ''
+        return data
 
+# 测试
+if __name__ == '__main__':
+    setting = Setting()
+    gotsettinglist = {}
+    gotsettinglist = setting.getSetting(['account', 'maxThread'])
+    for key in gotsettinglist:
+        print key + ":" + gotsettinglist[key]
 
