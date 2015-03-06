@@ -23,3 +23,4 @@ class Zhihu2ebook(object):
         自动用默认浏览器打开连接，（打算将最新版本链接置为百度网盘链接）
         :return:
         """
+        print u"检查是否有新版本..."
