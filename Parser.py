@@ -1,8 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import re
-import HTMLParser
-
 
 class Parse(object):
     """
