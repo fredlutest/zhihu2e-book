@@ -22,7 +22,7 @@ class Zhihu2ebook(object):
         self.epubContent = {}
         self.epubInfolist = []
         self.baseDir = os.path.realpath('.')  # 获得当前目录的绝对路径
-
+        self.setting = Setting()
 
 
     def checkupdate(self):

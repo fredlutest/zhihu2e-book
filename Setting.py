@@ -83,7 +83,7 @@ class Setting():
         self.getSetting(self.settingList)
 
     def initconfig(self):
-        """
+        u"""
         初始化配置文件的配置信息
         :return:
         """
@@ -99,7 +99,8 @@ class Setting():
         return
 
     def getSetting(self, setting=[]):
-        """
+        u"""
+        输入要查询的setting的列表，返回查询到的字典
         获得配置文件的配置信息
         :param setting:
         :return:
