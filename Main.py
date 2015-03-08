@@ -7,7 +7,8 @@
 # Date        :    2014.03.04
 # ######################################################
 
-from Init import *
+from init import *
+from login import *
 
 class Zhihu2ebook(object):
     def __init__(self):

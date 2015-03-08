@@ -10,10 +10,10 @@
 import datetime
 import re
 
-from Setting import *
-from BaseClass import *
+from setting import *
+from baseclass import *
 
-class Login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
+class login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
     """
     用于登陆网站的类
     """
