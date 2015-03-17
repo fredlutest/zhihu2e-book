@@ -53,7 +53,6 @@ class Setting():
     """
     def __init__(self):
         # ConfigParser这个类能够很好地操作ini格式的文件（配置文件）
-        # http://blog.sina.com.cn/s/blog_65a8ab5d0101ffqq.html
         # 看完删掉上一行  --何俊 03.06
         self.config = ConfigParser.SafeConfigParser()
         self.settingList = [

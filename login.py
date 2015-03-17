@@ -13,12 +13,17 @@ import re
 from setting import *
 from baseclass import *
 
-class login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
+from httpLib import *
+
+class Login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
     """
     用于登陆网站的类
     """
     def __init__(self, conn):
         self.setting = Setting()
+        self.cookieJarInMemory = cookielib.LWPCookieJar()
+        # 产生管理器对象
+        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookieJarInMemory))
 
     def send_message(self, account, password, captcha=''):
         xsrf = self.getXsrf(self.get_http_content())
@@ -27,10 +32,11 @@ class login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
             print u'回车重新发送登陆请求'
             return False
         _xsrf = xsrf.split('=')[1]
+        # add xsrf as cookie into cookieJar,
+        xsrfCookie = makeCookie(name='_xsrf', value=_xsrf, domain='www.zhihu.com')
 
     def getXsrf(self, content=''):
         u"""
-        不清楚这个方法的作用
         提取xsrf信息
         """
         xsrf = re.search(r'(?<=name="_xsrf" value=")[^"]*(?="/>)', content)

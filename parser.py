@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 
-class parser(object):
+class Parser(object):
     """
     基类
     解析HTML字符串
