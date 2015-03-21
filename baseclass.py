@@ -13,8 +13,7 @@ class BaseClass(object):
     """
     用于存放常用函数
     """
-    @staticmethod
-    def print_dict(self, data = {}, key = '', prefix = ''):
+    def print_dict(self, data={}, key='', prefix=''):
         """
         打印某个字典的值
         :param data: 传入的字典
@@ -24,7 +23,7 @@ class BaseClass(object):
         """
         if isinstance(data, dict):
             for key in data.keys():
-                self.printDict(data[key], key, prefix + '   ')
+                self.print_dict(data[key], key, prefix + '   ')
         else:
             print prefix + str(key) + ' => ' + str(data)
         return
@@ -80,11 +79,11 @@ class SqlClass(object):
             *   返回
                  *   无
          """
-        replaceSql   = 'replace into '+ tableName +' ('
+        replaceSql = 'replace into '+tableName+' ('
         placeholder = ') values ('
         varTuple = []
         for columnKey in data:
-            replaceSql  += columnKey + ','
+            replaceSql += columnKey + ','
             placeholder += '?,'
             varTuple.append(data[columnKey])
 
