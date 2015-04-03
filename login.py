@@ -8,7 +8,6 @@
 # ######################################################
 
 
-import re
 import urllib
 import json
 import datetime
@@ -26,12 +25,14 @@ class Login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
     def __init__(self, conn):
         self.setting = Setting()
         self.conn = conn
+        self.cursor = conn.cursor()
         # LWPCookieJar方法：创建与libwww-perl Set-Cookie3文件兼容的FileCookieJar实例 TODO
         self.cookieJarInMemory = cookielib.LWPCookieJar()
         # 产生管理器对象
         # urllib2()函数不支持验证，cookie或者其他HTTP高级功能，要支持这些功能，必须使用
         # build_opener()函数创建自定义Opener对象
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookieJarInMemory))
+        urllib2.install_opener(self.opener)
 
     def login(self):
         self.login_guide()
@@ -63,11 +64,12 @@ class Login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
             return False
         _xsrf = xsrf.split('=')[1]
         # add xsrf as cookie into cookieJar,
-        xsrfCookie = makeCookie(name='_xsrf', value=_xsrf, domain='www.zhihu.com')
+        xsrfCookie = self.make_cookie(name='_xsrf', value=_xsrf, domain='www.zhihu.com')
         self.cookieJarInMemory.set_cookie(xsrfCookie)
         if captcha == '':    # 如果没有验证码
             loginData = '{0}&email={1}&password={2}'.format(xsrf, account, password, ) + '&rememberme=y'
         else:
+            print "captchar到底怎么错了？", captcha
             loginData = '{0}&email={1}&password={2}&captcha={3}'.format(xsrf, account, password, captcha) + '&rememberme=y'
         loginData = urllib.quote(loginData, safe='=&')     # 表示不要对=&编码
         # 这里的警告是Pycharm的bug

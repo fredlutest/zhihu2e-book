@@ -20,6 +20,7 @@ class Zhihu2ebook(object):
         self.check_update()   # 检查是否需要更新，如果有更新，默认浏览器打开链接
         init = Init()
         self.conn = init.getConn()  #
+        self.cursor = self.conn.cursor()
         self.epubContent = {}   #
         self.epubInfolist = []  #
         self.baseDir = os.path.realpath('.')  # 获得当前目录的绝对路径
@@ -62,11 +63,11 @@ class Zhihu2ebook(object):
             self.mThread = int(self.setting.login_guide_max_thread())
             self.pQuality = int(self.setting.login_guide_pic_quality())
 
-        self.setting = Setting
+        self.setting = Setting()
         settingDict = {
-                'maxThread': self.mThread,
-                'picQuality': self.pQuality,
-                }
+            'maxThread': self.mThread,
+            'picQuality': self.pQuality,
+        }
         self.setting.setSetting(settingDict)
         print "登陆成功，信息已经保存"
 
