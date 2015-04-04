@@ -8,6 +8,8 @@
 # ######################################################
 test
 
+add test
+merge
 import urllib
 import json
 import datetime
