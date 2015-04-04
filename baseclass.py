@@ -13,8 +13,15 @@ class BaseClass(object):
     """
     用于存放常用函数
     """
-    @staticmethod
-    def print_dict(self, data = {}, key = '', prefix = ''):
+    # 全局变量
+    test_checkUpdate_flag = False
+    test_catchAnswerData_flag = False
+    test_buffer_flag = False
+    # test_chekcUpdate_flag = False
+    # test_chekcUpdate_flag = False
+    dataBaseFileName = u'./zhihuDB_171.db'
+
+    def print_dict(self, data={}, key='', prefix=''):
         """
         打印某个字典的值
         :param data: 传入的字典
@@ -24,12 +31,11 @@ class BaseClass(object):
         """
         if isinstance(data, dict):
             for key in data.keys():
-                self.printDict(data[key], key, prefix + '   ')
+                self.print_dict(data[key], key, prefix + '   ')
         else:
             print prefix + str(key) + ' => ' + str(data)
         return
 
-    @staticmethod
     def print_current_dir(self):
         """
         输出当前目录
@@ -38,14 +44,12 @@ class BaseClass(object):
         print os.path.realpath('.')
         return
 
-    @staticmethod
     def mkdir(self, path):
         try:
             os.mkdir(path)
         except OSError:
             print u"指定的目录已经存在"
 
-    @staticmethod
     def chdir(self, path):
         try:
             os.chdir(path)
@@ -80,11 +84,11 @@ class SqlClass(object):
             *   返回
                  *   无
          """
-        replaceSql   = 'replace into '+ tableName +' ('
+        replaceSql = 'replace into '+tableName+' ('
         placeholder = ') values ('
         varTuple = []
         for columnKey in data:
-            replaceSql  += columnKey + ','
+            replaceSql += columnKey + ','
             placeholder += '?,'
             varTuple.append(data[columnKey])
 
@@ -156,7 +160,7 @@ class HttpBaseClass(object):
         """
         if rawPageData.info().get(u"Content-Encoding") == "gzip":
             try:
-                pageContent = zlib.decompress(rawPageData.read(), 16 + zlib.MAX_WBITS)
+                page_content = zlib.decompress(rawPageData.read(), 16 + zlib.MAX_WBITS)
             except zlib.error as ziperror:
                 print u'解压出错'
                 print u'出错解压页面:' + rawPageData.geturl()
@@ -174,7 +178,6 @@ class CookieBaseClass(object):
     u"""
     本类负责处理与cookie相关事宜
     """
-    @staticmethod
     def make_cookie(self, name, value, domain):
         cookie = cookielib.Cookie(
             version=0,
@@ -198,4 +201,4 @@ class CookieBaseClass(object):
 
 if __name__ == "__main__":
     testBaseClass = BaseClass()
-    testBaseClass.printDict({"test1": "test1", "test2": "test2"}, "test2", "hello")
+    testBaseClass.print_dict({"test1": "test1", "test2": "test2"}, "test2", "hello")
