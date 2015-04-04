@@ -6,10 +6,7 @@
 # Author      :    Frank
 # Date        :    2014.03.04
 # ######################################################
-test
 
-add test
-merge
 import urllib
 import json
 import datetime
