@@ -15,7 +15,6 @@ class Zhihu2ebook(object):
         u"""
         ContentList.txt存放需要爬取的地址（可能是收藏夹地址，可能是某用户的地址）
         ContentList.txt使用$符号区隔开，同一行内的链接信息会放在一本电子书中
-        :return: TODO
         """
         self.check_update()   # 检查是否需要更新，如果有更新，默认浏览器打开链接
         init = Init()

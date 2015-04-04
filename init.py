@@ -16,7 +16,6 @@ class Init(object):
         """
         用于程序的初始化操作
         初始化数据库，得到操作数据库的cursor对象
-        :return:
         """
         self.initDB()
         self.cursor = self.conn.cursor()
