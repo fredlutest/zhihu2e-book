@@ -54,7 +54,7 @@ class Zhihu2ebook(object):
             if raw_input() == '':
                 print "TODO, 利用保存的设置登陆"
             else:
-                login.login()    #  不用之前的设置，重新登陆
+                login.login()    # 不用之前的设置，重新登陆
                 self.mThread = int(self.setting.login_guide_max_thread())
                 self.pQuality = int(self.setting.login_guide_pic_quality())
         else:
@@ -69,6 +69,72 @@ class Zhihu2ebook(object):
         }
         self.setting.setSetting(settingDict)
         print "登陆成功，信息已经保存"
+
+        # 主程序开始运行
+        readList = open('./ReadList.txt', 'r')
+        bookCount = 1
+        for line in readList:
+            # 一行表示一本电子书
+            chapter = 1
+            for rawUrl in line.split('$'):
+                print u'正在制作第{}本电子书的第{}节'.format(bookCount, chapter)
+
+    def getUrlInfo(self, rawUrl):
+        u"""
+        返回标准格式的网址
+        返回查询所需要的内容
+        urlInfo 结构
+        *   kind
+            *   answer
+                *   questionID
+                *   answerID
+            *   question
+                *   questionID
+            *   author
+                *   authorID
+            *   collection
+                *   colliectionID
+            *   table
+                *   tableID
+            *   topic
+                *   topicID
+            *   article
+                *   columnID
+                *   articleID
+            *   column
+                *   columnID
+        *   guide
+            *   用于输出引导语，告知用户当前工作的状态
+        *   worker
+            *   用于生成抓取对象，负责抓取网页内容
+        *   filter
+            *   用于生成过滤器，负责在数据库中提取答案，并将答案组织成便于生成电子书的结构
+        *   urlInfo
+            *   用于为Author/Topic/Table获取信息
+        *   baseSetting
+            *   基础的设置信息，比如图片质量，过滤标准
+            *   picQuality
+                *   图片质量
+            *   maxThread
+                *   最大线程数
+        """
+        urlInfo = {}
+        urlInfo['baseSetting'] = {}
+        urlInfo['baseSetting']['picQuality'] = self.pQuality
+        urlInfo['baseSetting']['maxThread'] = self.mThread
+        def detectUrl(rawUrl):
+            targetPattern = {}
+            targetPattern['answer'] = r'(?<=zhihu\.com/)question/\d{8}/answer/\d{8}'
+            targetPattern['question'] = r'(?<=zhihu\.com/)question/\d{8}'
+            # 使用#作为备注起始标识符，所以在正则中要去掉#
+            targetPattern['author'] = r'(?<=zhihu\.com/)people/[^/#\n\r]*'
+            targetPattern['collection'] = r'(?<=zhihu\.com/)collection/\d*'
+            targetPattern['table'] = r'(?<=zhihu\.com/)roundtable/[^/#\n\r]*'
+            targetPattern['topic'] = r'(?<=zhihu\.com/)topic/\d*'
+            # 先检测专栏，再检测文章，文章比专栏网址更长，类似问题与答案的关系，取信息可以用split('/')的方式获取
+            targetPattern['article'] = r'(?<=zhuanlan\.zhihu\.com/)[^/]*/\d{8}'
+            targetPattern['column'] = r'(?<=zhuanlan\.zhihu\.com/)[^/#\n\r]*'
+            # TODO
 
 
     def check_update(self):

@@ -68,7 +68,6 @@ class Login(BaseClass, HttpBaseClass, SqlClass, CookieBaseClass):
         if captcha == '':    # 如果没有验证码
             loginData = '{0}&email={1}&password={2}'.format(xsrf, account, password, ) + '&rememberme=y'
         else:
-            print "captchar到底怎么错了？", captcha
             loginData = '{0}&email={1}&password={2}&captcha={3}'.format(xsrf, account, password, captcha) + '&rememberme=y'
         loginData = urllib.quote(loginData, safe='=&')     # 表示不要对=&编码
         # 这里的警告是Pycharm的bug

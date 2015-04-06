@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # ######################################################
-# File Name   :    Init.py
+# File Name   :    Init.py  Done for now 2014.04.06
 # Description :    用于程序运行前的初始化
 # Author      :    Frank
 # Date        :    2014.03.04
@@ -223,6 +223,5 @@ class Init(object):
 
             #我关注的问题表
                 #这个可以利用用户活动表实现，故不在单独列表
-
 
             self.conn.commit()
